@@ -1,0 +1,45 @@
+{
+  "name": "post-feed-reader",
+  "version": "1.0.0",
+  "description": "Discovers and parses news, blog and podcast posts from any website",
+  "author": "Guichaguri",
+  "license": "Apache-2.0",
+  "keywords": [
+    "posts",
+    "news",
+    "blog",
+    "podcast",
+    "feed",
+    "rss",
+    "atom",
+    "jsonfeed",
+    "wordpress",
+    "autodiscovery"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Guichaguri/post-feed-reader.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node ./src/test.ts",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "directories": {
+    "lib": "lib/"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "htmlparser2": "^7.2.0",
+    "parse-link-header": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/parse-link-header": "^1.0.1",
+    "typescript": "^4.5.4",
+    "ts-node": "^10.4.0"
+  }
+}
