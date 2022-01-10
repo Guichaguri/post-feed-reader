@@ -9,7 +9,7 @@ Originally built for apps that need to list the posts with their own UI, but don
 
 # Features
 - **Simple**: Two-liner usage. Just fetches and parses posts.
-- **Supports multiple sources**: Wordpress REST API, RSS 2.0.1, RSS 2.0, RSS 1.0, RSS 0.91, Atom 1.0 and JSON Feed 1.1.
+- **Supports multiple sources**: [Wordpress REST API](https://developer.wordpress.org/rest-api/reference/posts/), [RSS 2.0.1](https://www.rssboard.org/rss-2-0-11), [RSS 2.0](https://www.rssboard.org/rss-2-0), [RSS 1.0](https://web.resource.org/rss/1.0/spec), [RSS 0.91](https://www.rssboard.org/rss-0-9-1), [Atom 1.0](https://datatracker.ietf.org/doc/html/rfc4287) and [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/).
 - **Auto-discovery**: Give any site URL and the library will try to find the data automatically.
 
 # Getting Started
