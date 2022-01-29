@@ -1,5 +1,8 @@
 # post-feed-reader
 
+[![npm](https://img.shields.io/npm/v/post-feed-reader.svg)](https://www.npmjs.com/package/post-feed-reader)
+[![license](https://img.shields.io/github/license/Guichaguri/post-feed-reader)](https://github.com/Guichaguri/post-feed-reader/blob/main/LICENSE)
+
 A library to fetch news, blog or podcast posts from any site.
 It works by auto-discovering a post source, which can be an RSS/Atom/JSON feed or the Wordpress REST API, then fetches and parses the list of posts.
 
