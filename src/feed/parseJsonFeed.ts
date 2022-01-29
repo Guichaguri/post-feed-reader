@@ -15,9 +15,6 @@ export function parseJsonFeed(feed: JsonFeed): PostList {
     container: {
       type: 'json-feed',
       version: feed.version,
-      metadata: {
-        nextUrl: feed.next_url,
-      },
     },
     pagination: {
       next: parseJsonFeedSource(feed.next_url, feed.title),

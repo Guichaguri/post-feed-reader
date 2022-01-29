@@ -2,8 +2,17 @@
  * Represents a Wordpress REST API source
  */
 export interface DiscoveredWordpressApi {
+
   source: 'wordpress-rest-api';
+
+  /**
+   * The WP API base URL
+   */
   url: string;
+
+  /**
+   * The page number to fetch
+   */
   page?: number;
 }
 
@@ -11,9 +20,22 @@ export interface DiscoveredWordpressApi {
  * Represents a Atom or RSS feed source
  */
 export interface DiscoveredFeed {
+
   source: 'feed';
+
+  /**
+   * The feed title, if any
+   */
   title?: string;
+
+  /**
+   * The feed URL
+   */
   url: string;
+
+  /**
+   * The feed mime type
+   */
   type: string;
 }
 
@@ -36,7 +58,7 @@ export interface PostList {
   /**
    * The feed title
    *
-   * `title` from Atom 1.0, RSS 0.91, RSS 1.0 and RSS 2.0
+   * `title` from Atom 1.0, RSS 0.91, RSS 1.0, RSS 2.0 and JSON Feed 1.1
    */
   title?: string;
 
@@ -44,7 +66,7 @@ export interface PostList {
    * The feed description
    *
    * `subtitle` from Atom 1.0
-   * `description` from RSS 0.91, RSS 1.0 and RSS 2.0
+   * `description` from RSS 0.91, RSS 1.0 , RSS 2.0 and JSON Feed 1.1
    */
   description?: PostContent;
 
@@ -52,6 +74,7 @@ export interface PostList {
    * The site URL
    *
    * `link` from Atom 1.0, RSS 0.91, RSS 1.0 and RSS 2.0
+   * `home_page_url` from JSON Feed 1.1
    */
   url?: string;
 
@@ -59,7 +82,7 @@ export interface PostList {
    * The feed language code
    *
    * `xml:lang` attribute from Atom 1.0
-   * `language` from RSS 0.91 and RSS 2.0
+   * `language` from RSS 0.91, RSS 2.0 and JSON Feed 1.1
    */
   language?: string;
 
@@ -86,6 +109,7 @@ export interface PostList {
    *
    * `logo` and `icon` from Atom 1.0
    * `image` from RSS 0.91, RSS 1.0 and RSS 2.0
+   * `icon` and `favicon` from JSON Feed 1.1
    */
   image?: PostMedia[];
 
@@ -94,6 +118,7 @@ export interface PostList {
    *
    * `entry` from Atom 1.0
    * `item` from RSS 0.91, RSS 1.0 and RSS 2.0
+   * `items` from JSON Feed 1.1
    */
   posts: PostItem[];
 
@@ -168,7 +193,7 @@ export interface PostItem {
   /**
    * The unique identification for the item
    *
-   * `id` from Atom 1.0
+   * `id` from Atom 1.0 and JSON Feed 1.1
    * `guid` from RSS 0.91, RSS 1.0 and RSS 2.0
    * `guid` from WP API
    */
@@ -177,7 +202,7 @@ export interface PostItem {
   /**
    * The item title
    *
-   * `title` from Atom 1.0, RSS 0.91, RSS 2.0 and WP API
+   * `title` from Atom 1.0, RSS 0.91, RSS 2.0, JSON Feed 1.1 and WP API
    */
   title?: string;
 
@@ -185,6 +210,7 @@ export interface PostItem {
    * The item permalink
    *
    * `link` from Atom 1.0, RSS 0.91, RSS 1.0, RSS 2.0 and WP API
+   * `url` from JSON Feed 1.1
    */
   link?: string;
 
@@ -193,6 +219,7 @@ export interface PostItem {
    *
    * `author` from Atom 1.0, RSS 2.0 and WP API
    * `dc:creator` from RSS 1.0
+   * `authors` from JSON Feed 1.1
    */
   authors?: PostPerson[];
 
@@ -202,12 +229,16 @@ export interface PostItem {
    * `published` or `updated` from Atom 1.0
    * `pubDate` from RSS 2.0
    * `dc:date` from RSS 1.0
+   * `date_published` from JSON Feed 1.1
    * `date_gmt` or `date` from WP API
    */
   publishedAt?: Date;
 
   /**
    * The date and time the item was updated at
+   *
+   * `updated` from Atom 1.0
+   * `date_modified` from JSON Feed 1.1
    */
   updatedAt?: Date;
 
@@ -215,6 +246,7 @@ export interface PostItem {
    * The item category list
    *
    * `category` from Atom 1.0 and RSS 2.0
+   * `tags` from JSON Feed 1.1
    * `categories` from WP API
    */
   categories?: PostTerm[];
@@ -231,13 +263,14 @@ export interface PostItem {
    *
    * `content` from Atom 1.0 and WP API
    * `description` from RSS 0.91, RSS 1.0 and RSS 2.0
+   * `content_html` and `content_text` from JSON Feed 1.1
    */
   content?: PostContent;
 
   /**
    * The item summary or excerpt
    *
-   * `summary` from Atom 1.0
+   * `summary` from Atom 1.0 and JSON Feed 1.1
    * `excerpt` from WP API
    */
   summary?: PostContent;
@@ -248,6 +281,7 @@ export interface PostItem {
    * `content` from Atom 1.0
    * `media:content` from RSS 1.0
    * `enclosure` from RSS 2.0
+   * `image`, `banner_image` and `attachments` from JSON Feed 1.1
    * `featured_media` from WP API
    */
   media?: PostMedia[];
@@ -256,6 +290,7 @@ export interface PostItem {
    * The item source
    *
    * `source` from Atom 1.0 and RSS 2.0
+   * `external_url` from JSON Feed 1.1
    */
   source?: PostSource;
 }
@@ -266,6 +301,7 @@ export interface PostContent {
    *
    * `content`, `summary` and `subtitle` with `type` === `html` from Atom 1.0
    * `description` from RSS 0.91, RSS 1.0 and RSS 2.0
+   * `content_html` from JSON Feed 1.1
    * `rendered` from WP API
    */
   html?: string;
@@ -274,6 +310,7 @@ export interface PostContent {
    * The plain text content, if available
    *
    * `content`, `summary` and `subtitle` with `type` === `text` from Atom 1.0
+   * `content_text`, `summary` and `description` from JSON Feed 1.1
    */
   text?: string;
 }
@@ -292,6 +329,8 @@ export interface PostMedia {
    * `icon`, `logo` from Atom 1.0
    * `url` attribute from Atom 1.0, RSS 0.91 and RSS 2.0
    * `rdf:resource` from RSS 1.0
+   * `avatar`, `icon`, `favicon`, `image`, `banner_image` and `url` from JSON Feed 1.1
+   * `avatar_urls` and `source_url` from WP API
    */
   url: string;
 
@@ -300,6 +339,7 @@ export interface PostMedia {
    *
    * `length` from RSS 2.0
    * `fileSize` from RSS 2.0 (Media RSS Spec)
+   * `size_in_bytes` from JSON Feed 1.1
    */
   length?: number;
 
@@ -307,7 +347,7 @@ export interface PostMedia {
    * The file MIME type
    *
    * `type` attribute from Atom 1.0, RSS 2.0
-   * `mime_type` from WP API
+   * `mime_type` from JSON Feed 1.1 and WP API
    */
   type?: string;
 
@@ -344,7 +384,7 @@ export interface PostPerson {
   /**
    * The person name
    *
-   * `name` from Atom 1.0 and WP API
+   * `name` from Atom 1.0, JSON Feed 1.1 and WP API
    * A substring of `dc:creator` from RSS 1.0
    * A substring of `author` from RSS 2.0
    */
@@ -364,12 +404,16 @@ export interface PostPerson {
    *
    * `uri` from Atom 1.0
    * A substring of `dc:creator` from RSS 1.0
+   * `url` from JSON Feed 1.1
    * `link` from WP API
    */
   uri?: string;
 
   /**
    * The person profile images
+   *
+   * `avatar` from JSON Feed 1.1
+   * `avatar_urls` from WP API
    */
   images?: PostMedia[];
 }
@@ -387,6 +431,7 @@ export interface PostTerm {
    *
    * `label` or `term` attributes from Atom 1.0
    * `category` from RSS 2.0
+   * An item from `tags` from JSON Feed 1.1
    * `name` from WP API
    */
   name?: string;
@@ -405,6 +450,7 @@ export interface PostSource {
    *
    * `link` from Atom 1.0
    * `url` attribute from RSS 2.0
+   * `external_url` from JSON Feed 1.1
    */
   url?: string;
 

@@ -11,6 +11,7 @@ Originally built for apps that need to list the posts with their own UI, but don
 - **Simple**: Two-liner usage. Just discovers and fetches the posts.
 - **Supports multiple sources**: [Wordpress REST API](https://developer.wordpress.org/rest-api/reference/posts/), [RSS 2.0.1](https://www.rssboard.org/rss-2-0-11), [RSS 2.0](https://www.rssboard.org/rss-2-0), [RSS 1.0](https://web.resource.org/rss/1.0/spec), [RSS 0.91](https://www.rssboard.org/rss-0-9-1), [Atom 1.0](https://datatracker.ietf.org/doc/html/rfc4287) and [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/).
 - **Auto-discovery**: Give any site URL and the library will try to find the data automatically.
+- **Pagination**: For sources that support it, you can fetch more than a single set of posts.
 
 # Getting Started
 
@@ -82,9 +83,6 @@ const posts = await getPostList(source, {
     // The amount of items to return
     limit: 10,
 
-    // The page number
-    page: 1,
-
     // The search string filter
     search: '',
 
@@ -112,6 +110,23 @@ const feedPosts = await getFeedPostList('https://news.google.com/atom');
 
 // Wordpress API
 const wpApiPosts = await getWordpressPostList('https://blog.mozilla.org/en/wp-json/');
+```
+
+## Pagination
+
+The post list may have pagination metadata attached. You can use it to navigate through pages. Here's an example:
+```ts
+const result = await getPostList(...);
+
+if (result.pagination.next) {
+  // There is a next page!
+  
+  const nextResult = await getPostList(result.pagination.next);
+  
+  // ...
+}
+
+// You can also check for result.pagination.previous, result.pagination.first and result.pagination.last
 ```
 
 ## Why support the Wordpress REST API, isn't RSS enough?
