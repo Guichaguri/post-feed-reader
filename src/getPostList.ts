@@ -86,14 +86,14 @@ export interface WordpressOptions {
  * @param options The options
  * @throws Error When the source couldn't be fetched or parsed
  */
-export async function getPostList(source: DiscoveredSource, options: FetchOptions = {}): Promise<PostList | undefined> {
+export async function getPostList(source: DiscoveredSource, options: FetchOptions = {}): Promise<PostList> {
   if (source.source === 'wordpress-rest-api')
-    return getWordpressPostList(source.url, options);
+    return getWordpressPostList(source.url, options, source.page);
 
   if (source.source === 'feed')
     return getFeedPostList(source.url, source.type, options);
 
-  return undefined;
+  throw new Error('The source type is unknown');
 }
 
 /**
