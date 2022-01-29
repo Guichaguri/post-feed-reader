@@ -3,6 +3,7 @@ import { PostList } from '../types';
 import { WordpressPost } from './types';
 import { parseWordpressPosts } from './parseWordpressPosts';
 import { WordpressOptions } from '../getPostList';
+import { parseWordpressPagination } from './parseWordpressPagination';
 
 /**
  * Fetches the Wordpress post list from the Wordpress REST API
@@ -11,19 +12,19 @@ import { WordpressOptions } from '../getPostList';
  *
  * @param axios The Axios instance
  * @param wpApiBase The base Wordpress REST API URL
+ * @param page The page number
  * @param options The options
  */
-export async function fetchWordpressPostList(axios: Axios, wpApiBase: string, options: WordpressOptions = {}): Promise<PostList> {
+export async function fetchWordpressPostList(axios: Axios, wpApiBase: string, page: number = 1, options: WordpressOptions = {}): Promise<PostList> {
   let params: Record<string, any> = {};
+
+  params['page'] = page;
 
   if (options.includeEmbedded ?? true)
     params['_embed'] = true;
 
   if (options.limit)
     params['limit'] = options.limit;
-
-  if (options.page)
-    params['page'] = options.page;
 
   if (options.search)
     params['search'] = options.search;
@@ -42,7 +43,7 @@ export async function fetchWordpressPostList(axios: Axios, wpApiBase: string, op
 
   const url = '/wp/v2/posts?' + new URLSearchParams(params).toString();
 
-  const { data } = await axios.get<WordpressPost[]>(url, {
+  const { data, headers } = await axios.get<WordpressPost[]>(url, {
     baseURL: wpApiBase,
     responseType: 'json',
     headers: {
@@ -59,5 +60,6 @@ export async function fetchWordpressPostList(axios: Axios, wpApiBase: string, op
       }
     },
     posts: parseWordpressPosts(data),
+    pagination: parseWordpressPagination(wpApiBase, page, headers),
   };
 }

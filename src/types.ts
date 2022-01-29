@@ -4,6 +4,7 @@
 export interface DiscoveredWordpressApi {
   source: 'wordpress-rest-api';
   url: string;
+  page?: number;
 }
 
 /**
@@ -95,6 +96,70 @@ export interface PostList {
    * `item` from RSS 0.91, RSS 1.0 and RSS 2.0
    */
   posts: PostItem[];
+
+  /**
+   * The post list pagination. Contains information to fetch the next page
+   */
+  pagination: PostListPagination;
+
+}
+
+export interface PostListPagination {
+
+  /**
+   * The next page post source
+   *
+   * `link` with `rel="next"` from Atom and RSS 2.0
+   * `next_url` from JSON Feed 1.1
+   * `page` + 1 from WP API
+   */
+  next?: DiscoveredSource;
+
+  /**
+   * The previous page post source
+   *
+   * `link` with `rel="previous"` from Atom and RSS 2.0
+   * `page` - 1 from WP API
+   */
+  previous?: DiscoveredSource;
+
+  /**
+   * The first page post source
+   *
+   * `link` with `rel="first"` from Atom and RSS 2.0
+   * `feed_url` from JSON Feed 1.1
+   * `page` = 1 from WP API
+   */
+  first?: DiscoveredSource;
+
+  /**
+   * The last page post source
+   *
+   * `link` with `rel="last"` from Atom and RSS 2.0
+   * `page` = `x-wp-totalpages` from WP API
+   */
+  last?: DiscoveredSource;
+
+  /**
+   * The current page number (starting in 1)
+   *
+   * `page` from WP API
+   */
+  currentPage?: number;
+
+  /**
+   * The total number of pages
+   *
+   * `x-wp-totalpages` from WP API
+   */
+  totalPages?: number;
+
+  /**
+   * The total number of posts
+   *
+   * `x-wp-total` from WP API
+   */
+  totalPosts?: number;
 
 }
 

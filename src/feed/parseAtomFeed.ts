@@ -1,7 +1,8 @@
 import { Element } from 'domhandler';
-import { PostContent, PostItem, PostTerm, PostList, PostMedia, PostPerson, PostSource } from '../types';
+import { PostContent, PostItem, PostTerm, PostList, PostMedia, PostPerson, PostSource, DiscoveredFeed } from '../types';
 import { DomUtils } from 'htmlparser2';
 import { getDateByTagName, getElementByTagName, getTextByTagName } from '../utils';
+import { parseAtomPagination } from './parseAtomPagination';
 
 /**
  * Parses an Atom feed
@@ -26,6 +27,7 @@ export function parseAtomFeed(atom: Element): PostList {
       type: 'atom-feed',
       version: version,
     },
+    pagination: parseAtomPagination(links),
     title: getTextByTagName('title', children, false),
     description: parseAtomContent(subtitle),
     copyright: getTextByTagName('rights', children, false),

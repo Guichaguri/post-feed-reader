@@ -42,6 +42,8 @@ export interface WordpressOptions {
 
   /**
    * The page number
+   *
+   * @deprecated The `page` property in the {@link DiscoveredSource} for WordPress is the preferrable alternative
    */
   page?: number;
 
@@ -99,12 +101,13 @@ export async function getPostList(source: DiscoveredSource, options: FetchOption
  *
  * @param wpApiBaseUrl The Wordpress REST API Base URL
  * @param options The options
+ * @param page The page number, starting in 1
  * @throws Error When the source couldn't be fetched or parsed
  */
-export async function getWordpressPostList(wpApiBaseUrl: string, options: FetchOptions = {}): Promise<PostList> {
+export async function getWordpressPostList(wpApiBaseUrl: string, options: FetchOptions = {}, page?: number): Promise<PostList> {
   const httpClient = options.axios ?? axios;
 
-  const list = await fetchWordpressPostList(httpClient, wpApiBaseUrl, options.wordpress);
+  const list = await fetchWordpressPostList(httpClient, wpApiBaseUrl, page ?? options.wordpress?.page ?? 1, options.wordpress);
 
   return postProcessPostList(list, options);
 }

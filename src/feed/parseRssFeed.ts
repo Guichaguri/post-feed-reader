@@ -2,6 +2,7 @@ import { Element } from 'domhandler';
 import { PostItem, PostTerm, PostList, PostMedia, PostPerson, PostSource } from '../types';
 import { DomUtils } from 'htmlparser2';
 import { getDateByTagName, getElementByTagName, getNumberByTagName, getTextByTagName } from '../utils';
+import { parseAtomPagination } from './parseAtomPagination';
 
 /**
  * Parses a RSS feed
@@ -21,11 +22,14 @@ export function parseRssFeed(rss: Element): PostList {
 
   const images = DomUtils.getElementsByTagName('image', channel, false);
 
+  const atomLinks = DomUtils.getElementsByTagName('atom:link', rss.children, false);
+
   return {
     container: {
       type: 'rss-feed',
       version: version,
     },
+    pagination: parseAtomPagination(atomLinks),
     title: getTextByTagName('title', channel, false),
     url: getTextByTagName('link', channel, false),
     description: {
@@ -44,7 +48,7 @@ export function parseRssFeed(rss: Element): PostList {
  *
  * @param rss The root RSS tag
  */
-export function parseRssPosts(rss: Element): PostItem[] {
+function parseRssPosts(rss: Element): PostItem[] {
   const items = DomUtils.getElementsByTagName('item', rss.children);
 
   return items.map(item => {

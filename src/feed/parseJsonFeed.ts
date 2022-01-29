@@ -1,4 +1,4 @@
-import { PostItem, PostList, PostMedia, PostPerson } from '../types';
+import { DiscoveredFeed, PostItem, PostList, PostListPagination, PostMedia, PostPerson } from '../types';
 import { JsonFeed, JsonFeedAuthor, JsonFeedItem } from './types';
 
 /**
@@ -18,6 +18,10 @@ export function parseJsonFeed(feed: JsonFeed): PostList {
       metadata: {
         nextUrl: feed.next_url,
       },
+    },
+    pagination: {
+      next: parseJsonFeedSource(feed.next_url, feed.title),
+      first: parseJsonFeedSource(feed.feed_url, feed.title),
     },
     title: feed.title,
     description: {
@@ -124,4 +128,22 @@ function parseJsonFeedMedia(item: JsonFeedItem): PostMedia[] {
   }
 
   return media;
+}
+
+/**
+ * Parses a JSON feed source based on a URL
+ *
+ * @param url The URL
+ * @param title The title of the source
+ */
+function parseJsonFeedSource(url: string | undefined, title?: string): DiscoveredFeed | undefined {
+  if (!url)
+    return undefined;
+
+  return {
+    url,
+    title,
+    source: 'feed',
+    type: 'application/feed+json',
+  };
 }
