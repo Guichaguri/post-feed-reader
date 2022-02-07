@@ -132,21 +132,21 @@ if (result.pagination.next) {
 // You can also check for result.pagination.previous, result.pagination.first and result.pagination.last
 ```
 
-## Why support the Wordpress REST API, isn't RSS enough?
+## Why support other sources, isn't RSS enough?
 
 RSS is the most widely feed format used on the web, but not only it lacks information that might be trivial to your application, [the specification is a mess](https://www.xml.com/pub/a/2002/12/18/dive-into-xml.html) with many vague to implementation properties, meaning how the information is formatted differs from feed to feed.
 For instance, the description can be the full post as HTML, or just an excerpt, or in plain text, or even just an HTML link to the post page.
 
 Atom's specification is way more rigid and robust, which makes relying on the data trustworthier. It's definitely the way to go in the topic of feeds. But it still lacks some properties that can only be fetched through the Wordpress REST API.
 
-The Wordpress REST API also has the following benefits:
+The Wordpress REST API supports the following over simple RSS and Atom feeds:
 - Filtering by category, tag and/or author
 - Searching
 - Pagination
 - Featured media
 - Author profile 
 
-The JSON Feed format is also just as good as Atom format, but very few websites produce it.
+The JSON Feed format is also just as good as the Atom format, but at the moment very few websites produce it.
 
 ## How does the auto-discovery works?
 
@@ -159,7 +159,7 @@ The JSON Feed format is also just as good as Atom format, but very few websites 
 
 Nothing.
 
-Yeah, there's no property that is required in all specs.
+Yeah, there's no property that is required in all specs, thus we can't guarantee they will be present.
 
 But! The most basic properties are very likely to be present, such as `guid`, `title` and `link`.
 
