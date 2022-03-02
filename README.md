@@ -8,11 +8,11 @@ It works by auto-discovering a post source, which can be an RSS/Atom/JSON feed o
 
 It's meant for NodeJS, but as it is built on Isomorphic Javascript, it can work on browsers if the website allows cross-origin requests.
 
-Originally built for apps that need to list the posts with their own UI, but don't actually manage the blog and need automatic fallbacks when the blog technology does change.
+Originally built for apps that need to list the posts with their own UI, but don't actually manage the blog and need automatic fallbacks when the blog does change.
 
 # Features
 - **Simple**: Two-liner usage. Just discovers and fetches the posts.
-- **Supports multiple sources**: [Wordpress REST API](https://developer.wordpress.org/rest-api/reference/posts/), [RSS 2.0.1](https://www.rssboard.org/rss-2-0-11), [RSS 2.0](https://www.rssboard.org/rss-2-0), [RSS 1.0](https://web.resource.org/rss/1.0/spec), [RSS 0.91](https://www.rssboard.org/rss-0-9-1), [Atom 1.0](https://datatracker.ietf.org/doc/html/rfc4287) and [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/).
+- **Supports multiple sources**: [Wordpress REST API](https://developer.wordpress.org/rest-api/reference/posts/), [RSS 2.0.1](https://www.rssboard.org/rss-2-0-11), [RSS 2.0](https://www.rssboard.org/rss-2-0), [RSS 1.0](https://web.resource.org/rss/1.0/spec), [RSS 0.91](https://www.rssboard.org/rss-0-9-1), [Atom 1.0](https://datatracker.ietf.org/doc/html/rfc4287), [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/) and [JSON Feed 1.0](https://www.jsonfeed.org/version/1/).
 - **Auto-discovery**: Give any site URL and the library will try to find the data automatically.
 - **Pagination**: For sources that support it, you can fetch more than a single set of posts.
 
@@ -21,13 +21,10 @@ Originally built for apps that need to list the posts with their own UI, but don
 Install it with NPM or Yarn:
 
 ```sh
-npm install post-feed-reader
-```
-```sh
-yarn add post-feed-reader
+npm install post-feed-reader # or yarn add post-feed-reader
 ```
 
-You first need to discover the post source, which will return a URL to the RSS/Atom/JSON Feed or the Wordpress REST API.
+You first need to discover the post source, which will return an object containing a URL to the RSS/Atom/JSON Feed or the Wordpress REST API.
 
 Then you can pass the discovered source to the `getPostList`, which will fetch and parse it.
 
@@ -139,7 +136,7 @@ For instance, the description can be the full post as HTML, or just an excerpt, 
 
 Atom's specification is way more rigid and robust, which makes relying on the data trustworthier. It's definitely the way to go in the topic of feeds. But it still lacks some properties that can only be fetched through the Wordpress REST API.
 
-The Wordpress REST API supports the following over simple RSS and Atom feeds:
+Since [WordPress is by far the most used CMS](https://w3techs.com/technologies/details/cm-wordpress), supporting its API is a great alternative. The Wordpress REST API supports the following over RSS and Atom feeds:
 - Filtering by category, tag and/or author
 - Searching
 - Pagination
@@ -152,7 +149,7 @@ The JSON Feed format is also just as good as the Atom format, but at the moment 
 
 1. Fetches the site's main page
 2. Looks for [Wordpress Link headers](https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/#link-header)
-3. Looks for [RSS](https://www.rssboard.org/rss-autodiscovery), Atom and JSON Feed `<link>` metatags
+3. Looks for [RSS](https://www.rssboard.org/rss-autodiscovery), [Atom](https://blog.whatwg.org/feed-autodiscovery) and [JSON Feed](https://www.jsonfeed.org/version/1.1/#discovery) `<link>` metatags
 4. If `tryToGuessPaths` is set to `true`, it will look for the paths to try to find a feed or the WP API.
 
 ## Most properties are optional, what am I guaranteed to have?
