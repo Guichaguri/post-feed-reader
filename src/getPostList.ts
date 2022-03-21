@@ -27,11 +27,20 @@ export interface FetchOptions {
 export interface WordpressOptions {
 
   /**
-   * Whether it should included embedded entities, such as the author, taxonomy and featured media
+   * Whether it should include embedded entities, such as the author, taxonomy and featured media
    *
    * Defaults to true
    */
   includeEmbedded?: boolean;
+
+  /**
+   * Whether it will fetch the blog info, such as the title, description, url and images.
+   *
+   * Setting this to true adds an extra HTTP request.
+   *
+   * Defaults to false
+   */
+  fetchBlogInfo?: boolean;
 
   /**
    * The amount of posts to list
@@ -43,7 +52,7 @@ export interface WordpressOptions {
   /**
    * The page number
    *
-   * @deprecated The `page` property in the {@link DiscoveredSource} for WordPress is the preferrable alternative
+   * @deprecated The `page` property in the {@link DiscoveredSource} for WordPress is the preferable alternative
    */
   page?: number;
 

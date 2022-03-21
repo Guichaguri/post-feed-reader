@@ -116,3 +116,21 @@ export interface WordpressTerm {
 
   yoast_head_json?: WordpressYoastHead;
 }
+
+export interface WordpressWpApi {
+  name: string;
+  description: string;
+  url: string;
+  home: string;
+  gmt_offset: number;
+  timezone_string: string;
+  namespaces: string[];
+  authentication: any;
+  routes: any;
+  site_logo?: number | false;
+  site_icon?: number | false;
+
+  _embedded?: {
+    'wp:featuredmedia'?: WordpressMedia[],
+  },
+}

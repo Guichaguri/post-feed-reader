@@ -1,9 +1,10 @@
 import { Axios } from 'axios';
 import { PostList } from '../types';
 import { WordpressPost } from './types';
-import { parseWordpressPosts } from './parseWordpressPosts';
 import { WordpressOptions } from '../getPostList';
+import { parseWordpressPosts } from './parseWordpressPosts';
 import { parseWordpressPagination } from './parseWordpressPagination';
+import { fetchWordpressBlogInfo } from './fetchWordpressBlogInfo';
 
 /**
  * Fetches the Wordpress post list from the Wordpress REST API
@@ -51,7 +52,15 @@ export async function fetchWordpressPostList(axios: Axios, wpApiBase: string, pa
     },
   });
 
+  let blogInfo: Partial<PostList> = {};
+
+  if (options.fetchBlogInfo) {
+    blogInfo = await fetchWordpressBlogInfo(axios, wpApiBase, options)
+      .catch(() => blogInfo);
+  }
+
   return {
+    ...blogInfo,
     container: {
       type: 'wordpress-rest-api',
       version: 'v2',
