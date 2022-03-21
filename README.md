@@ -80,6 +80,10 @@ const posts = await getPostList(source, {
     // Whether it will include author, taxonomy and media data from the wordpress api
     includeEmbedded: true,
 
+    // Whether it will fetch the blog info, such as the title, description, url and images
+    // Setting this to true adds one extra http request
+    fetchBlogInfo: false,
+
     // The amount of items to return
     limit: 10,
 
