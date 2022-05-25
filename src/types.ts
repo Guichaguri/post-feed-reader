@@ -262,7 +262,7 @@ export interface PostItem {
    * The item content
    *
    * `content` from Atom 1.0 and WP API
-   * `description` from RSS 0.91, RSS 1.0 and RSS 2.0
+   * `content:encoded` from RSS 0.91, RSS 1.0 and RSS 2.0
    * `content_html` and `content_text` from JSON Feed 1.1
    */
   content?: PostContent;
@@ -271,6 +271,7 @@ export interface PostItem {
    * The item summary or excerpt
    *
    * `summary` from Atom 1.0 and JSON Feed 1.1
+   * `description` from RSS 0.91, RSS 1.0 and RSS 2.0
    * `excerpt` from WP API
    */
   summary?: PostContent;

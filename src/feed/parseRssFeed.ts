@@ -66,8 +66,11 @@ function parseRssPosts(rss: Element): PostItem[] {
       categories: parseRssCategories(categories),
       media: parseRssMedia(enclosures),
       source: parseRssSource(getElementByTagName('source', children)),
-      content: {
+      summary: {
         html: getTextByTagName('description', children),
+      },
+      content: {
+        html: getTextByTagName('content:encoded', children),
       },
     };
   });
