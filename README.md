@@ -12,9 +12,9 @@ Originally built for apps that need to list the posts with their own UI, but don
 
 # Features
 - **Simple**: Two-liner usage. Just discovers and fetches the posts.
-- **Supports multiple sources**: [Wordpress REST API](https://developer.wordpress.org/rest-api/reference/posts/), [RSS 2.0.1](https://www.rssboard.org/rss-2-0-11), [RSS 2.0](https://www.rssboard.org/rss-2-0), [RSS 1.0](https://web.resource.org/rss/1.0/spec), [RSS 0.91](https://www.rssboard.org/rss-0-9-1), [Atom 1.0](https://datatracker.ietf.org/doc/html/rfc4287), [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/) and [JSON Feed 1.0](https://www.jsonfeed.org/version/1/).
+- **Supports multiple sources**: [Wordpress REST API](https://developer.wordpress.org/rest-api/reference/posts/), [RSS 2.0.1](https://www.rssboard.org/rss-2-0-11), [RSS 2.0](https://www.rssboard.org/rss-2-0), [RSS 1.0](https://web.resource.org/rss/1.0/spec), [RSS 0.91](https://www.rssboard.org/rss-0-9-1), [Atom 1.0](https://datatracker.ietf.org/doc/html/rfc4287), [JSON Feed 1.1](https://www.jsonfeed.org/version/1.1/), [JSON Feed 1.0](https://www.jsonfeed.org/version/1/) and [RSS-in-JSON](https://github.com/scripting/Scripting-News/blob/master/rss-in-json/README.md).
 - **Auto-discovery**: Give any site URL and the library will try to find the data automatically.
-- **Pagination**: For sources that support it, you can fetch more than a single set of posts.
+- **Pagination**: For feeds that support it, you can fetch more than a single set of posts.
 
 # Getting Started
 

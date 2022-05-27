@@ -5,6 +5,9 @@ import { parseAtomFeed } from './parseAtomFeed';
 import { parseRssFeed } from './parseRssFeed';
 import { parseJsonFeed } from './parseJsonFeed';
 import { JsonFeed } from './types';
+import { RssInJsonFeed } from './rss-in-json.types';
+import { parseRssInJsonFeed } from './parseRssInJsonFeed';
+import { extractFromJsonp } from '../utils';
 
 const rootTags = ['rss', 'feed', 'rdf:RDF'];
 
@@ -36,9 +39,17 @@ export function parseRawFeed(rawFeed: string, type?: string): PostList {
  * @param rawFeed The raw feed text
  */
 function parseRawJsonFeed(rawFeed: string): PostList {
-  const feed = JSON.parse(rawFeed) as JsonFeed;
+  rawFeed = extractFromJsonp(rawFeed);
 
-  return parseJsonFeed(feed);
+  const feed = JSON.parse(rawFeed) as JsonFeed | RssInJsonFeed;
+
+  if ('version' in feed && feed.version.includes('jsonfeed.org'))
+    return parseJsonFeed(feed);
+
+  if ('rss' in feed)
+    return parseRssInJsonFeed(feed);
+
+  throw new Error("Couldn't identify the type of the feed");
 }
 
 /**

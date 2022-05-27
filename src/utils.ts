@@ -24,3 +24,16 @@ export function getNumberByTagName(tag: string, nodes: Node[] | Node, recurse: b
 export function convertHtmlToText(html: string | undefined): string | undefined {
   return html ? DomUtils.textContent(parseDocument(html)).trim() : undefined;
 }
+
+/**
+ * Tries to extract a JSON string from a JSONP text
+ *
+ * @param raw The raw JSON/JSONP text
+ */
+export function extractFromJsonp(raw: string): string {
+  // This regex matches JSONP results, such as `onGetFeed({ ... })`
+  const jsonpRegex = /^(\w+)\s+?\(({.*})\s+?\)$/sm;
+  const match = jsonpRegex.exec(raw.trim());
+
+  return match ? match[2] : raw;
+}

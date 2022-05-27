@@ -50,7 +50,7 @@ export interface PostList {
    * The container metadata of the post list
    */
   container: {
-    type: 'rss-feed' | 'atom-feed' | 'json-feed' | 'wordpress-rest-api';
+    type: 'rss-feed' | 'atom-feed' | 'json-feed' | 'wordpress-rest-api' | 'rss-in-json-feed';
     version?: string;
     metadata?: any;
   };
