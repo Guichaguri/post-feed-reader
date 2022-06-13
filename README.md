@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/post-feed-reader.svg)](https://www.npmjs.com/package/post-feed-reader)
 [![license](https://img.shields.io/github/license/Guichaguri/post-feed-reader)](https://github.com/Guichaguri/post-feed-reader/blob/main/LICENSE)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FGuichaguri%2Fpost-feed-reader.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FGuichaguri%2Fpost-feed-reader?ref=badge_shield)
 
 A library to fetch news, blog or podcast posts from any site.
 It works by auto-discovering a post source, which can be an RSS/Atom/JSON feed or the Wordpress REST API, then fetches and parses the list of posts.
@@ -168,3 +169,7 @@ For all the other properties, it's highly recommended implementing your own fall
 For instance, showing a substring of the content when the summary isn't available. 
 
 The library will try its best to fetch the most data available.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FGuichaguri%2Fpost-feed-reader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FGuichaguri%2Fpost-feed-reader?ref=badge_large)
