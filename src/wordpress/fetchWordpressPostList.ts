@@ -30,13 +30,13 @@ export async function fetchWordpressPostList(axios: Axios, wpApiBase: string, pa
   if (options.search)
     params['search'] = options.search;
 
-  if (options.authors)
+  if (options.authors && options.authors.length > 0)
     params['author'] = options.authors;
 
-  if (options.categories)
+  if (options.categories && options.categories.length > 0)
     params['categories'] = options.categories;
 
-  if (options.tags)
+  if (options.tags && options.tags.length > 0)
     params['tags'] = options.tags;
 
   if (options.additionalParams)

@@ -126,7 +126,7 @@ export interface WordpressWpApi {
   timezone_string: string;
   namespaces: string[];
   authentication: any;
-  routes: any;
+  routes: Record<string, any>;
   site_logo?: number | false;
   site_icon?: number | false;
 
