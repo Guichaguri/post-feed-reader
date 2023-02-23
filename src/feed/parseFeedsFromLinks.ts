@@ -1,6 +1,7 @@
 import { Element } from 'domhandler';
-import { DiscoveredFeed } from '../types';
+import { DiscoveredFeed, DiscoveredSource, DiscoveredWordpressApi } from '../types';
 
+const wpApiRel = 'https://api.w.org/';
 const validTypes = ['application/feed+json', 'application/atom+xml', 'application/rss+xml'];
 const basicTypes = ['application/json', 'application/xml', 'text/json', 'text/xml'];
 
@@ -10,33 +11,46 @@ const basicTypes = ['application/json', 'application/xml', 'text/json', 'text/xm
  * @param links The link elements
  * @param baseUrl The base URL, if any
  */
-export function parseFeedsFromLinks(links: Element[], baseUrl?: URL): DiscoveredFeed[] {
-  const discovered: DiscoveredFeed[] = [];
+export function parseFeedsFromLinks(links: Element[], baseUrl?: URL): DiscoveredSource[] {
+  const discoveredWpApi: DiscoveredWordpressApi[] = [];
+  const discoveredFeed: DiscoveredFeed[] = [];
 
   for (let link of links) {
-    const url = link.attribs?.href;
+    const href = link.attribs?.href;
 
-    if (!url)
+    if (!href)
       continue;
 
     const type = link.attribs.type?.toLowerCase();
     const rel = link.attribs.rel?.toLowerCase();
+    const url = new URL(href, baseUrl).href; // Resolves relative URLs
 
-    if (!isValidLink(type, rel))
+    if (rel === wpApiRel) {
+      discoveredWpApi.push({
+        source: 'wordpress-rest-api',
+        url,
+      });
+
       continue;
+    }
 
-    const title = link.attribs.title;
+    if (isValidLink(type, rel)) {
+      const title = link.attribs.title;
 
-    discovered.push({
-      source: 'feed',
-      url: new URL(url, baseUrl).href, // Resolves relative URLs
-      type,
-      title,
-    });
+      discoveredFeed.push({
+        source: 'feed',
+        url,
+        type,
+        title,
+      });
+    }
   }
 
   // Sorts by the type
-  return discovered.sort((a, b) => validTypes.indexOf(a.type) - validTypes.indexOf(b.type));
+  return [
+    ...discoveredWpApi,
+    ...discoveredFeed.sort((a, b) => validTypes.indexOf(a.type) - validTypes.indexOf(b.type)),
+  ];
 }
 
 /**

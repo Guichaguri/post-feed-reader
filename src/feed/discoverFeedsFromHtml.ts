@@ -1,10 +1,10 @@
 import { parseDocument, DomUtils } from 'htmlparser2';
 import { Document } from 'domhandler';
-import { DiscoveredFeed } from '../types';
+import { DiscoveredSource } from '../types';
 import { getElementByTagName } from '../utils';
 import { parseFeedsFromLinks } from './parseFeedsFromLinks';
 
-export function discoverFeedsFromRawHtml(url: string, html: string): DiscoveredFeed[] {
+export function discoverFeedsFromRawHtml(url: string, html: string): DiscoveredSource[] {
   return discoverFeedsFromHtml(url, parseDocument(html));
 }
 
@@ -16,7 +16,7 @@ export function discoverFeedsFromRawHtml(url: string, html: string): DiscoveredF
  * @param url The page URL
  * @param html The HTML DOM
  */
-export function discoverFeedsFromHtml(url: string, html: Document): DiscoveredFeed[] {
+export function discoverFeedsFromHtml(url: string, html: Document): DiscoveredSource[] {
   const links = DomUtils.getElementsByTagName('link', html, true, 100);
 
   const base = getElementByTagName('base', html.children, true);

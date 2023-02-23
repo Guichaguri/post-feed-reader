@@ -1,5 +1,5 @@
 import { Element } from 'domhandler';
-import { DiscoveredFeed, PostListPagination } from '../types';
+import { DiscoveredSource, PostListPagination } from '../types';
 import { parseFeedsFromLinks } from './parseFeedsFromLinks';
 
 /**
@@ -22,7 +22,7 @@ export function parseAtomPagination(links: Element[]): PostListPagination {
  * @param links The link elements
  * @param rel The rel
  */
-function findFeedLink(links: Element[], rel: 'first' | 'last' | 'previous' | 'next'): DiscoveredFeed | undefined {
+function findFeedLink(links: Element[], rel: 'first' | 'last' | 'previous' | 'next'): DiscoveredSource | undefined {
   const validFeeds = parseFeedsFromLinks(links.filter(link => link.attribs.rel === rel));
 
   if (validFeeds.length === 0)
