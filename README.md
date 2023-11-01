@@ -8,7 +8,7 @@ It works by auto-discovering a post source, which can be an RSS/Atom/JSON feed o
 
 It's meant for NodeJS, but as it is built on Isomorphic Javascript, it can work on browsers if the website allows cross-origin requests.
 
-Originally built for apps that need to list the posts with their own UI, but don't actually manage the blog and need automatic fallbacks when the blog does change.
+Originally built for apps that need to list the posts with their own UI, but don't actually manage the blog and need automatic fallbacks when the blog technology does change.
 
 # Features
 - **Simple**: Two-liner usage. Just discovers and fetches the posts.
@@ -60,10 +60,10 @@ const source = await discoverPostSource('https://techcrunch.com', {
   // Custom data source filtering
   canUseSource: (source: DiscoveredSource) => true,
 
-  // Whether it will try to guess wordpress api and feed urls if auto-discovery doesn't work
+  // Whether it will try to guess wordpress api and feed urls if the auto-discovery process fails
   tryToGuessPaths: false,
   
-  // The paths that it will try to guess for both the Wordpress API or the RSS/Atom/JSON feed
+  // The paths that it will query trying to guess both the Wordpress API or the RSS/Atom/JSON feed
   wpApiPaths: ['./wp-json', '?rest_route=/'],
   feedPaths: ['./feed', './atom', './rss', './feed.json', './feed.xml', '?feed=atom'],
 });
@@ -112,7 +112,7 @@ If you already have an Atom/RSS/JSON Feed or the Wordpress REST API url in hands
 // RSS, Atom or JSON Feed
 const feedPosts = await getFeedPostList('https://news.google.com/atom');
 
-// Wordpress API
+// WordPress API
 const wpApiPosts = await getWordpressPostList('https://blog.mozilla.org/en/wp-json/');
 ```
 
@@ -152,15 +152,15 @@ The JSON Feed format is also just as good as the Atom format, but at the moment 
 ## How does the auto-discovery works?
 
 1. Fetches the site's main page
-2. Looks for [Wordpress Link headers](https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/#link-header)
+2. Looks for [WordPress API Link headers](https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/#link-header)
 3. Looks for [RSS](https://www.rssboard.org/rss-autodiscovery), [Atom](https://blog.whatwg.org/feed-autodiscovery) and [JSON Feed](https://www.jsonfeed.org/version/1.1/#discovery) `<link>` metatags
-4. If `tryToGuessPaths` is set to `true`, it will look for the paths to try to find a feed or the WP API.
+4. If `tryToGuessPaths` is set to `true`, it will query a few common paths to try to find a feed or the WP API.
 
 ## Most properties are optional, what am I guaranteed to have?
 
 Nothing.
 
-Yeah, there's no property that is required in all specs, thus we can't guarantee they will be present.
+Yeah, there's no property that is required in all specs, thus we can't guarantee any of them will be present.
 
 But! The most basic properties are very likely to be present, such as `guid`, `title` and `link`.
 
