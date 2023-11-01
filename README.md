@@ -41,7 +41,7 @@ const list = await getPostList(source);
 console.log(list.posts.map(post => post.title));
 ```
 
-Simple enough, eh?
+Simple enough, eh? Try it on [RunKit](https://runkit.com/guichaguri/post-feed-reader)
 
 ## Output
 
