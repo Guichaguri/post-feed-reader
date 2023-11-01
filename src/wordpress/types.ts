@@ -37,7 +37,7 @@ export interface WordpressPost {
   yoast_head_json?: WordpressYoastHead;
 
   _embedded?: {
-    author?: WordpressAuthor[],
+    author?: (WordpressAuthor | WpError)[],
     'wp:featuredmedia'?: WordpressMedia[],
     'wp:term'?: WordpressTerm[][],
   },
@@ -133,4 +133,10 @@ export interface WordpressWpApi {
   _embedded?: {
     'wp:featuredmedia'?: WordpressMedia[],
   },
+}
+
+export interface WpError {
+  code: string;
+  message: string;
+  data: { status: number };
 }

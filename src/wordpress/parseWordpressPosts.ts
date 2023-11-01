@@ -1,8 +1,9 @@
 import { PostItem, PostTerm, PostPerson } from '../types';
 import { WordpressPost } from './types';
-import { parseWordpressDateTime } from './parseWordpressDateTime';
 import { convertHtmlToText } from '../utils';
+import { parseWordpressDateTime } from './parseWordpressDateTime';
 import { parseWordpressMedia } from './parseWordpressMedia';
+import { isNotWordpressError } from './isNotWordpressError';
 
 export function parseRawWordpressPosts(data: string): PostItem[] {
   const posts = JSON.parse(data) as WordpressPost[];
@@ -84,7 +85,12 @@ function parseWordpressTerms(post: WordpressPost, ids: number[] | undefined, tax
  * @param post The post object
  */
 function parseWordpressAuthors(post: WordpressPost): PostPerson[] | undefined {
-  const authors = post._embedded?.author?.map(author => ({
+  const wordpressAuthors = post._embedded?.author?.filter(isNotWordpressError);
+
+  if (!wordpressAuthors || wordpressAuthors.length === 0)
+    return [{ id: post.author }];
+
+  return wordpressAuthors.map(author => ({
     id: author.id,
     name: author.name,
     uri: author.link,
@@ -94,6 +100,4 @@ function parseWordpressAuthors(post: WordpressPost): PostPerson[] | undefined {
       width: +size,
     })),
   } as PostPerson));
-
-  return authors ?? [{ id: post.author }];
 }
