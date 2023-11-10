@@ -34,7 +34,7 @@
     "lib": "lib/"
   },
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^1.6.0",
     "htmlparser2": "^7.2.0",
     "parse-link-header": "^2.0.0"
   },
